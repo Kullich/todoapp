@@ -36,3 +36,53 @@
     transform: rotate(360deg);
   }
 }
+
+input {
+  margin: 10px;
+  height: 40px;
+  width: 300px;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+button {
+  height: 60px;
+  width: 100px;
+  margin: 5px;
+  border: none;
+  background-color: coral;
+  border-radius: 5px;
+  color: white;
+  
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1 {
+  font-family: monospace;
+}
+
+ul {
+  display: grid;
+  place-items: center;
+}
+
+li {
+  list-style-type: none;
+  width: 300px;
+  height: 40px;
+  background-color: #00df6c;
+  margin: 10px;
+  padding-top: 20px;
+  color: white;
+  font-family: monospace;
+  font-size: 23px;
+}
+
+#tasks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
