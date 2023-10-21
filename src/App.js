@@ -51,9 +51,9 @@ function App() {
           return (
           <div id='tasks'>
             <li key={key}>{val.task}</li>
-            <button onClick={() => completeTask(val.task)}>Completed</button>
-            <button onClick={() => deleteTask(val.task)}>X</button>
-            {val.completed ? <h1>Task Completed</h1> : <h1>Task Not Completed</h1>}
+            <button onClick={() => completeTask(val.task)}>Complete</button>
+            <button onClick={() => deleteTask(val.task)}>Delete</button>
+            {val.completed ? <span class='badgeCompleted'>Task Completed</span> : <span class='badgeNotCompleted'>Task Not Completed</span>}
           </div>
           )
             })}
