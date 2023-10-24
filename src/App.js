@@ -5,7 +5,8 @@ function App() {
 
   const [todoList, setTodoList] = useState([]);
   const [currentTask, setCurrentTask] = useState("");
-  
+  const [editingTask, setEditingTask] = useState(null); // Uchováváme úkol, který se právě upravuje
+
   const inputTask = useRef(null);
 
   const addTask = () => {
@@ -21,6 +22,8 @@ function App() {
     );
   };
 
+  
+
   const completeTask = (taskToComplete) => {
     setTodoList(todoList.map((task) => {
       return task.task === taskToComplete 
@@ -30,6 +33,21 @@ function App() {
     );
   };
 
+  const editTask = (taskToEdit) => {
+    setEditingTask(taskToEdit);
+    setCurrentTask(taskToEdit.task);
+  };
+
+  const saveEditedTask = () => {
+    setTodoList(
+      todoList.map((task) => ({
+        ...task,
+        task: task === editingTask ? currentTask : task.task,
+      }))
+    );
+    setEditingTask(null); // Ukončíme režim úprav
+    setCurrentTask("");
+  };
 
   return (
     <div className="App">
@@ -51,13 +69,38 @@ function App() {
           return (
           <div id='tasks'>
             <li key={key}>{val.task}</li>
-            <button onClick={() => completeTask(val.task)}>Complete</button>
-            <button onClick={() => deleteTask(val.task)}>Delete</button>
-            {val.completed ? <span class='badgeCompleted'>Task Completed</span> : <span class='badgeNotCompleted'>Task Not Completed</span>}
+            <button 
+              className="buttonComplete" 
+              onClick={() => completeTask(val.task)}
+              >
+                Complete
+              </button>
+            <button
+              className="buttonEdit"
+              onClick={() => editTask(val)}
+            > Edit
+            </button>
+            <button 
+              className="buttonDelete" 
+              onClick={() => deleteTask(val.task)}
+              >
+                Delete
+              </button>
+            {val.completed ? <span class='badgeCompleted'>Completed</span> : <span class='badgeNotCompleted'>Not Completed</span>}
           </div>
           )
             })}
       </ul>
+      {editingTask && (
+        <div>
+          <input
+            type="text"
+            value={currentTask}
+            onChange={(event) => setCurrentTask(event.target.value)}
+          />
+          <button onClick={saveEditedTask}>Save</button>
+        </div>
+      )}
     </div>
   );
 }
